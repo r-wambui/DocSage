@@ -1,0 +1,4 @@
+chromadb==1.5.5
+llama_cpp_python==0.3.16
+sentence-transformers==5.3.0
+torch==2.2.2

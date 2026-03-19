@@ -1,0 +1,29 @@
+# ── Virtual Environment ──────────────────────────────────────
+venv/
+.venv/
+env/
+
+# ── Environment Variables ────────────────────────────────────
+.env
+
+# ── Models (too large for git) ───────────────────────────────
+models/*.gguf
+models/*.bin
+
+# ── Vector Store (regenerated on ingest) ────────────────────
+vectorstore/
+
+# ── Python Cache ─────────────────────────────────────────────
+__pycache__/
+*.pyc
+.pytest_cache/
+
+# ── HuggingFace Cache (embedding model) ──────────────────────
+.cache/
+
+# ── OS Files ─────────────────────────────────────────────────
+.DS_Store
+
+# ── IDE ──────────────────────────────────────────────────────
+.vscode/
+.idea/
