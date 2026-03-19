@@ -4,3 +4,4 @@ sentence-transformers==3.0.1
 torch==2.2.2
 einops              # required by nomic-embed-text-v1
 numpy<2             # NumPy 2.x breaks torch on Intel Mac
+pypdf==6.9.1

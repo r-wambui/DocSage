@@ -10,6 +10,7 @@ from pathlib import Path
 
 import chromadb
 from sentence_transformers import SentenceTransformer
+from pypdf import PdfReader
 
 from src.config import (CHROMA_PERSIST_DIR, 
                         EMBEDDING_MODEL, 
@@ -71,4 +72,35 @@ def scan_folder(folder_path: str) -> List[Path]:
  
     print(f"[DocSage] Found {len(files)} file(s) in {folder_path}")
     return files
+
+def _load_pdf(file_path: Path) -> str:
+    """
+    Extract text from all pages of a pdf
+
+    """
+    reader = PdfReader(file_path)
+    pages = [page.extract_text() or "" for page in reader.pages]
+    return "\n".join(pages)
+
+def _load_text(file_path: Path) -> str:
+    """
+
+    Reads plain text and markdown files.
+
+    """
+    return file_path.read_text(encoding="utf-8", errors="ignore")
+
+def load_files(file_path: Path) -> str:
+    """
+    Load and return text from different supported files, pdf and text files
+
+    """
+
+    ext = file_path.suffix.lower()
+    if ext == ".pdf":
+        return _load_pdf(file_path)
+    elif ext in {".md", ".txt"}:
+        return _load_text(file_path)
+    else:
+        raise ValueError(f"[DocSage] Unsupported file type: {ext}")
  
