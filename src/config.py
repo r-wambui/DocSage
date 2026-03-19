@@ -14,3 +14,6 @@ CHROMA_PERSIST_DIR = Path(os.getenv("CHROMA_PERSIST_DIR"))
 EMBEDDING_MODEL = os.getenv("EMBEDDING_MODEL")
 
 SUPPORTED_EXTENSIONS = {".pdf", ".txt", ".md"}
+
+CHUNK_SIZE = int(os.getenv("CHUNK_SIZE"))
+CHUNK_OVERLAP = int(os.getenv("CHUNK_OVERLAP"))
