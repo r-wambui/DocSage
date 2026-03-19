@@ -6,6 +6,7 @@ Folder check > file loading > text cleaning > chunking > embedding > store in ch
 
 """
 import chromadb
+from src.config import CHROMA_PERSIST_DIR
 
 def get_chroma_collection() -> chromadb.Collection:
 
