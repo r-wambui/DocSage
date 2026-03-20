@@ -71,5 +71,32 @@ def retrieve(query:str, embedding_model: SentenceTransformer, top_k: int = TOP_K
 
 
 def format_context(chunks: List[Dict]) -> str:
-    pass
+    """
+    Format the retrieved chunks into a string to feed to the LLM
+    
+    Each chunk is labelled with its source file so the LLM can reference
+    where information came from, which reduces hallucination.
+    """
+    sections = []
+    for chunk in chunks:
+        sections.append(
+            f"[Source: {chunk['source']}]\n{chunk['text']}"
+        )
+    return "\n\n".join(sections)
+
+
+def get_sources(chunks: List[Dict]) -> List[str]:
+    """
+    Returns a list of source filenames where the chuinks were retrieved.
+    Used in the UI to show users sources referenced
+    """
+    seen = set()
+    sources = []
+    for chunk in chunks:
+        src = chunk["source"]
+        if src not in seen:
+            seen.add(src)
+            sources.append(src)
+    return sources
+
  
