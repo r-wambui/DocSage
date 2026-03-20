@@ -13,7 +13,12 @@ CHROMA_PERSIST_DIR = Path(os.getenv("CHROMA_PERSIST_DIR"))
 # Set the embedding model to use
 EMBEDDING_MODEL = os.getenv("EMBEDDING_MODEL")
 
+# Current supported file extensions
 SUPPORTED_EXTENSIONS = {".pdf", ".txt", ".md"}
 
+# Chunk size and the overlap to use
 CHUNK_SIZE = int(os.getenv("CHUNK_SIZE"))
 CHUNK_OVERLAP = int(os.getenv("CHUNK_OVERLAP"))
+
+# Number of relevant chunks to retrieve per query
+TOP_K = int(os.getenv("TOP_K", 4))
