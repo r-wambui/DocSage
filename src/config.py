@@ -22,3 +22,10 @@ CHUNK_OVERLAP = int(os.getenv("CHUNK_OVERLAP"))
 
 # Number of relevant chunks to retrieve per query
 TOP_K = int(os.getenv("TOP_K", 4))
+
+# model path
+MODEL_PATH = Path(os.getenv("MODEL_PATH"))
+
+# Number of tokens the model can process in one pass
+# Larger = more context but more RAM usage
+N_CTX = int(os.getenv("N_CTX"))
