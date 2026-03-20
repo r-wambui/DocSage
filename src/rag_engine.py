@@ -9,7 +9,7 @@ This is how the whole process is:
         -> returns generated answers and sources
 
 """
-from typing import List, Dict
+from typing import List, Dict, Generator
 
 from llama_cpp import Llama
 from sentence_transformers import SentenceTransformer
@@ -47,10 +47,20 @@ def build_prompt(query: str, context: str) -> str:
         "4. Be concise and accurate.\n"
         "5. Always reference the source document.(source: <filename>).\n"
     )
-    prompt =  (
-        f"[INST] {system}\n\n"
+    # prmont for Minstral
+    # prompt =  (
+    #     f"[INST] {system}\n\n"
+    #     f"### Context from your documents:\n{context}\n\n"
+    #     f"### Question:\n{query} [/INST]"
+    # )
+
+    # Prompt for Phi
+    prompt = (
+        f"<|system|>\n{system}<|end|>\n"
+        f"<|user|>\n"
         f"### Context from your documents:\n{context}\n\n"
-        f"### Question:\n{query} [/INST]"
+        f"### Question:\n{query}<|end|>\n"
+        f"<|assistant|>\n"
     )
     return prompt
 
@@ -87,4 +97,41 @@ def ask(query: str, llm: Llama, embedding_model: SentenceTransformer, top_k: int
         "chunks": chunks,
 
     }
+
+
+def ask_stream(query: str, llm: Llama, embedding_model: SentenceTransformer, top_k: int = TOP_K,) -> Generator:
+    """
+    Streaming version of ask(), Yield token one by one as they are generated,
+    Helpful in the UI instead of waiting for whole response
+
+    """
+
+    # Retrieve relevant chunks from ChromaDB
+    chunks = retrieve(query, embedding_model, top_k=top_k)
+ 
+    # Format chunks into a context string for the prompt
+    context = format_context(chunks)
+ 
+    # Build the full prompt
+    prompt = build_prompt(query, context)
+
+    # Stream response
+    respsone = llm(
+        prompt,
+        max_tokens=512,
+        temperature=TEMPERATURE,
+        stop=["</s>", "[INST]"],
+        echo=False,
+        stream=True,
+    )
+
+    for token in response:
+        text = token["choices"][0]["text"]
+        yield text
+
+    yield {"sources": get_sources(chunks)}
+    yield {"chunks": chunks}
+ 
+
+
 
