@@ -27,8 +27,8 @@ for query in sample_test_queries:
         print(f"       Score  : {chunk['score']}")
         print(f"       Text   : {chunk['text'][:100].strip()}...") # You can comment out when you want to test this
 
-    sections = format_context(chunks)
-    # print(sections[:200]) You can comment out when you want to test this
+    context = format_context(chunks)
+    # print(context[:200]) You can comment out when you want to test this
 
     sources = get_sources(chunks)
     print(f"\n  Referenced docs: {sources}")

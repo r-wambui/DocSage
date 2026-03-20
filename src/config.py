@@ -29,3 +29,6 @@ MODEL_PATH = Path(os.getenv("MODEL_PATH"))
 # Number of tokens the model can process in one pass
 # Larger = more context but more RAM usage
 N_CTX = int(os.getenv("N_CTX"))
+
+# Controls randomness in responses (0.0 = deterministic, 1.0 = creative)
+TEMPERATURE = float(os.getenv("TEMPERATURE"))

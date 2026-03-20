@@ -77,12 +77,12 @@ def format_context(chunks: List[Dict]) -> str:
     Each chunk is labelled with its source file so the LLM can reference
     where information came from, which reduces hallucination.
     """
-    sections = []
+    context = []
     for chunk in chunks:
-        sections.append(
+        context.append(
             f"[Source: {chunk['source']}]\n{chunk['text']}"
         )
-    return "\n\n".join(sections)
+    return "\n\n".join(context)
 
 
 def get_sources(chunks: List[Dict]) -> List[str]:
