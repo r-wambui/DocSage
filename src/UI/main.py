@@ -11,11 +11,11 @@ sys.path.insert(0, str(Path(__file__).parent.parent.parent))
 
 from src.config import SUPPORTED_EXTENSIONS
 from src.ingestor import load_embedding_model, ingest_folder
-from src.rag_engine import load_llm
+from src.rag_engine import load_llm, ask_stream
 
 # Configure page
 
-st.set_page_config(page_title="DocSage: Chat with your files",
+st.set_page_config(page_title="DocSage",
                     page_icon="file_folder",
                     layout="wide")
 
@@ -61,7 +61,7 @@ def get_llm():
 with st.sidebar:
     st.image("https://img.icons8.com/fluency/96/documents.png", width=60)
     st.title("DocSage")
-    st.caption("Chat with your local files — privately.")
+    # st.caption("Chat with your local files — privately.")
     st.divider()
  
     # Select folder
@@ -144,13 +144,65 @@ with st.sidebar:
     st.caption("🔒 100% local — no data leaves your machine.")
     st.caption("Powered by llama.cpp + ChromaDB")
 
- 
+
+# Design the chat area
+st.title(" DocSage")
+st.caption("Chat with your local files — privately.")
+
+if not st.session_state.ingested:
+    st.info(
+        "**Get started** — paste your documents folder path in the sidebar "
+        "and click **Ingest Documents**."
+    )
+    st.stop()   # don't render the chat UI until docs are ingested
 
 
-        
- 
- 
+# Chat input
+query = st.chat_input("Ask a question about your documents...")
+
+if query:
+    embedding_model = get_embedding_model()
+    llm = get_llm()
+
+    with st.chat_message("user"):
+        st.markdown(query)
+
+    st.session_state.messages.append({
+        "role": "user",
+        "content": query,
+    })
 
 
+    # fetch ask_stream to stream the response
+    with st.chat_message("assistant"):
+        response_placeholder = st.empty()
+        full_response = ""
+        sources = []
+        chunks = []
 
+        for token in ask_stream(query, llm, embedding_model):
+            if isinstance(token, dict):
+                if "sources" in token:
+                    sources = token["sources"]
+                if "chunks" in token:
+                    chunks = token["chunks"]
+            else:
+                full_response += token
+                response_placeholder.markdown(full_response + "▌")
 
+        response_placeholder.markdown(full_response)
+
+        if sources:
+            with st.expander("📄 Sources referenced", expanded=True):
+                for source in sources:
+                    st.markdown(f"- `{source}`")
+
+                    if chunks:
+                        st.divider()
+                        st.caption("Retrieval details:")
+                        for chunk in chunks:
+                            st.caption(
+                                f"`{chunk['source']}` — chunk {chunk['chunk_index']} "
+                                f"— similarity: {chunk['score']}"
+                            )
+    

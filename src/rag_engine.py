@@ -116,7 +116,7 @@ def ask_stream(query: str, llm: Llama, embedding_model: SentenceTransformer, top
     prompt = build_prompt(query, context)
 
     # Stream response
-    respsone = llm(
+    response = llm(
         prompt,
         max_tokens=512,
         temperature=TEMPERATURE,
