@@ -157,6 +157,26 @@ if not st.session_state.ingested:
     st.stop()   # don't render the chat UI until docs are ingested
 
 
+# Chat History
+for message in st.session_state.messages:
+    with st.chat_message(message["role"]):
+        st.markdown(message["content"])
+
+    if message["role"] == "assistant" and message.get("sources"):
+        with st.expander("📄 Sources referenced", expanded=False):
+            for source in message["sources"]:
+                st.markdown(f"- `{source}`")
+
+        if message.get("chunks"):
+            st.divider()
+            st.caption("Retrieval details:")
+            for chunk in message["chunks"]:
+                st.caption(
+                    f"`{chunk['source']}` — chunk {chunk['chunk_index']} "
+                    f"— similarity: {chunk['score']}"
+                    )
+
+
 # Chat input
 query = st.chat_input("Ask a question about your documents...")
 
@@ -176,9 +196,14 @@ if query:
     # fetch ask_stream to stream the response
     with st.chat_message("assistant"):
         response_placeholder = st.empty()
+        status_placeholder = st.empty()
+        status_placeholder.markdown("*Searching your documents...*")
+
+
         full_response = ""
         sources = []
         chunks = []
+        first_token = True
 
         for token in ask_stream(query, llm, embedding_model):
             if isinstance(token, dict):
@@ -187,6 +212,9 @@ if query:
                 if "chunks" in token:
                     chunks = token["chunks"]
             else:
+                if first_token:
+                    status_placeholder.empty()  # ← clears "thinking" once tokens start
+                    first_token = False
                 full_response += token
                 response_placeholder.markdown(full_response + "▌")
 
@@ -205,4 +233,12 @@ if query:
                                 f"`{chunk['source']}` — chunk {chunk['chunk_index']} "
                                 f"— similarity: {chunk['score']}"
                             )
-    
+
+    # save the messages for chat history
+    st.session_state.messages.append({
+        "role": "assistant",
+        "content": full_response,
+        "sources": sources,
+        "chunks": chunks,
+    })
+
