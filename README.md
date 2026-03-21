@@ -57,7 +57,7 @@ venv\Scripts\activate           # Windows
 pip install -r requirements.txt
 ```
 
->  **Windows users** — if `llama-cpp-python` fails to build, install the C++ Build Tools.  
+>  **Windows users**:- if `llama-cpp-python` fails to build, install the C++ Build Tools.  
 > This is the proper long-term fix for Windows Python development in general:
 > 
 > - Download **Visual Studio Build Tools** from [here](https://visualstudio.microsoft.com/visual-cpp-build-tools/)

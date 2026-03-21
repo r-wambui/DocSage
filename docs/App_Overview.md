@@ -24,14 +24,13 @@ of the model and embedding weights. After that, it runs fully offline.
 
 ## Key Features
 
-- **Folder-based ingestion** — point DocSage at any folder and it processes all supported files recursively
-- **Semantic search** — finds relevant content by meaning, not just keywords
-- **Local LLM** — powered by `llama-cpp-python`, runs on CPU
-- **Source references** — every answer shows exactly which documents it came from
-- **Streaming responses** — answers appear word by word
-- **100% private** — zero data transmission after initial model download
+- **Folder-based ingestion** - point DocSage at any folder and it processes all supported files recursively
+- **Semantic search** - finds relevant content by meaning, not just keywords
+- **Local LLM** - powered by `llama-cpp-python`, runs on CPU
+- **Source references** - every answer shows exactly which documents it came from
+- **Streaming responses** - answers appear word by word
+- **100% private** - zero data transmission after initial model download
 
----
 ## Supported File Types
 
 | Format | Extension |
