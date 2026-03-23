@@ -6,7 +6,7 @@ const config = {
   favicon: "img/favicon.ico",
 
   url: "https://r-wambui.github.io",
-  baseUrl: "/",
+  baseUrl: "/DocSage/",
 
   organizationName: "r-wambui",
   projectName: "DocSage",
