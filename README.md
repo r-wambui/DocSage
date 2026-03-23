@@ -57,7 +57,7 @@ venv\Scripts\activate           # Windows
 pip install -r requirements.txt
 ```
 
->  **Windows users** — if `llama-cpp-python` fails to build, install the C++ Build Tools.  
+>  **Windows users**:- if `llama-cpp-python` fails to build, install the C++ Build Tools.  
 > This is the proper long-term fix for Windows Python development in general:
 > 
 > - Download **Visual Studio Build Tools** from [here](https://visualstudio.microsoft.com/visual-cpp-build-tools/)
@@ -73,16 +73,31 @@ curl -L "https://huggingface.co/TheBloke/Mistral-7B-Instruct-v0.2-GGUF/resolve/m
      -o models/mistral-7b-instruct-v0.2.Q4_K_M.gguf
 ```
 
-### 5. Configure environment
-Create a `.env` file in the project root with the following variables:
+### 5. Create the vectorstore folder
+ChromaDB persists your document embeddings here between sessions — 
+so you only need to ingest your documents once.
 
-```env
-
+```bash
+mkdir vectorstore
 ```
 
-### 6. Run DocSage
+### 6. Configure environment
+Create a `.env` file in the project root with the following variables:.You can change the values depending on what settings and model you want to use
+
+```env
+MODEL_PATH=./models/Phi-3-mini-4k-instruct-q4.gguf
+CHROMA_PERSIST_DIR=./vectorstore
+EMBEDDING_MODEL=nomic-ai/nomic-embed-text-v1
+CHUNK_SIZE=512
+CHUNK_OVERLAP=64
+TOP_K=4
+N_CTX=4096
+TEMPERATURE=0.2
+```
+
+### 7. Run DocSage
 ```bash
-streamlit run src/ui/app.py
+streamlit run src/ui/main.py
 ```
 Open http://localhost:8501 in your browser, paste/browse your documents folder path, and start chatting.
 

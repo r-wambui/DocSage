@@ -29,4 +29,10 @@ __pycache__/
 .idea/
 
 # sample folder
-tests/docs
+# tests/docs
+
+# node modules
+docs/node_modules/
+
+# Docussaurus
+docs/.docusaurus

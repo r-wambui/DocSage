@@ -16,7 +16,7 @@ from src.rag_engine import load_llm, ask_stream
 # Configure page
 
 st.set_page_config(page_title="DocSage",
-                    page_icon="file_folder",
+                    page_icon="https://img.icons8.com/fluency/96/documents.png",
                     layout="wide")
 
 
@@ -59,16 +59,22 @@ def get_llm():
 
 # Sidebar
 with st.sidebar:
-    st.image("https://img.icons8.com/fluency/96/documents.png", width=60)
-    st.title("DocSage")
-    # st.caption("Chat with your local files — privately.")
+    st.markdown(
+        """
+        <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 5px;">
+            <img src="https://img.icons8.com/fluency/96/documents.png" width="28">
+            <h2 style="margin: 0; font-size: 1.4rem;">DocSage</h2>
+        </div>
+        """,
+        unsafe_allow_html=True
+    )
+
     st.divider()
  
     # Select folder
-    st.subheader("📁 Document Folder")
+    st.markdown("### 📁 Documents")
     st.caption(
         f"Supported formats: {', '.join(SUPPORTED_EXTENSIONS)}\n"
-        "Subfolders are scanned recursively."
     )
 
     # Browse folder on laptop
@@ -97,7 +103,7 @@ with st.sidebar:
     folder_path = st.text_input(
         label="Folder path",
         value=st.session_state.selected_folder,
-        placeholder="Or paste path manually: Users/Sample_docs/",
+        placeholder="e.g. Users/docs/",
         help="Use the Browse button or paste a folder path manually.",
         label_visibility="collapsed",
     )
@@ -130,7 +136,7 @@ with st.sidebar:
                 st.session_state.ingested = True
                 st.session_state.ingested_folder = str(folder)
                 st.session_state.messages = []
-                st.success(f"✅ {total} chunks ingested successfully!")
+                st.success(f"{total} chunks ingested successfully!")
 
             except Exception as e:
                 st.error(f"Ingestion failed:\n{e}")
@@ -142,12 +148,10 @@ with st.sidebar:
  
     st.divider()
     st.caption("🔒 100% local — no data leaves your machine.")
-    st.caption("Powered by llama.cpp + ChromaDB")
-
 
 # Design the chat area
-st.title(" DocSage")
-st.caption("Chat with your local files — privately.")
+# st.title(" DocSage")
+st.subheader("Chat with your local files privately")
 
 if not st.session_state.ingested:
     st.info(
