@@ -16,7 +16,7 @@ hide_title: true
 
 **Chat with your local documents privately and securely**
 
-DDocSage is a local app that let's users chat and ask questions about their own files (PDFs, Markdown, text) locally. Its powered by RAGs and llama.cpp to run LLMs locally
+DocSage is a local app that let's users chat and ask questions about their own files (PDFs, Markdown, text) locally. Its powered by RAGs and llama.cpp to run LLMs locally
 
 ## What Problem Does It Solve?
 
