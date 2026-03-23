@@ -1,8 +1,0 @@
-chromadb==1.5.5
-llama_cpp_python==0.3.16
-sentence-transformers==3.0.1
-torch==2.2.2
-einops              # required by nomic-embed-text-v1
-numpy<2             # NumPy 2.x breaks torch on Intel Mac
-pypdf==6.9.1
-streamlit==1.55.0
