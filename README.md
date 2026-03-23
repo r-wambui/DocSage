@@ -108,3 +108,10 @@ Open http://localhost:8501 in your browser, paste/browse your documents folder p
   > Note: On machines with 8GB RAM, using the Phi model will be faster
 - **Disk space:** ~4GB for the model
 - **CPU:** Works on CPU (no GPU required)
+
+### 8. Documentation
+
+Full documentation including architecture, setup, implementation walkthrough, 
+and how to extend DocSage is available at:
+
+https://r-wambui.github.io/DocSage/
