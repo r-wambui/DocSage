@@ -18,11 +18,11 @@ docsage/
 │   ├── rag_engine.py                  # RAG orchestration + LLM inference
 │   └── ui/
 │       ├── __init__.py
-│       └── app.py                # Streamlit interface
+│       └── main.py                # Streamlit interface
 │
 ├── tests/
 │   ├── __init__.py
-|   ├── sample_docs/                      # Sample files for quick demofolder to ingest  
+|   ├── sample_docs/                      # Sample files for quick demo folder to ingest  
 │   ├── test_ingestor.py          # Verify document processing
 │   ├── test_retriever.py         # Verify semantic search
 │   └── test_rag_engine.py             # Verify LLM inference end-to-end
@@ -122,7 +122,7 @@ LLM inference and returns a grounded answer with sources.
 
 ---
 
-### `src/ui/app.py`
+### `src/ui/main.py`
 
 **Responsibility:** The Streamlit interface. Handles all user interaction —
 folder selection, ingestion, chat display, and streaming responses.

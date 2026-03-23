@@ -1,7 +1,18 @@
-<h1>
-  <img src="https://img.icons8.com/fluency/96/documents.png" width="32" style="vertical-align: middle;" />
-  DocSage
-</h1>
+---
+id: App_Overview
+title: App Overview
+sidebar_position: 1
+slug: /
+hide_title: true
+---
+
+<div style={{display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '1rem'}}>
+  <img 
+    src="https://img.icons8.com/fluency/96/documents.png" 
+    width="48" 
+  />
+  <span style={{fontSize: '2.2rem', fontWeight: '700', lineHeight: '1'}}>DocSage</span>
+</div>
 
 **Chat with your local documents privately and securely**
 
@@ -12,8 +23,8 @@ DDocSage is a local app that let's users chat and ask questions about their own 
 Most AI chat tools send your documents to a remote server for processing.
 That's a problem when your files contain sensitive, private, or proprietary information.
 
-DocSage solves this by running the entire pipeline — document loading, embedding, retrieval,
-and LLM inference — on your own hardware. The only network activity is the one-time download
+DocSage solves this by running the entire pipeline - document loading, embedding, retrieval,
+and LLM inference - on your own hardware. The only network activity is the one-time download
 of the model and embedding weights. After that, it runs fully offline.
 
 ## Who Is This For?

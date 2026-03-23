@@ -4,7 +4,7 @@ DocSage is organized into three core components built around a shared vector sto
 
 - **Ingestion pipeline** - scans a folder, processes supported documents, generates embeddings, and stores them in ChromaDB  
 - **Retrieval layer** - embeds user queries and retrieves the most relevant document chunks using similarity search  
-- **RAG pipeline** - combines retrieved context with the user query to build a prompt and generate an answer using the LLM  
+- **RAG engine pipeline** - combines retrieved context with the user query to build a prompt and generate an answer using the LLM  
 
 These components are exposed through a **Streamlit UI**, which handles user interaction and displays responses with source references.
 
@@ -79,7 +79,7 @@ DocSage/
 │   ├── retriever.py    # Semantic search against ChromaDB
 │   ├── rag_engine.py        # RAG pipeline: retrieve → prompt → generate
 │   └── ui/
-│       └── app.py      # Streamlit interface
+│       └── main.py      # Streamlit interface
 ├── models/             # Place your .gguf model here (gitignored)
 ├── vectorstore/        # ChromaDB persists here (gitignored)
 ├── tests/              # Tests for each script and the sample docs to ingest

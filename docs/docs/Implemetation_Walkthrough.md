@@ -226,7 +226,7 @@ After the token stream ends, it yields metadata dicts so the UI can display
 source references without a second network call.
 
 
-## `src/ui/app.py` — Streamlit Interface
+## `src/ui/main.py` — Streamlit Interface
 
 ### Model Caching
 

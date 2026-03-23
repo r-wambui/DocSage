@@ -13,7 +13,7 @@ collection = get_chroma_collection()
 embedding_model = load_embedding_model()
 
 # Ingest the docs folder in the test directory
-sample_folder = str(Path(__file__).parent / "docs")
+sample_folder = str(Path(__file__).parent / "sample_docs")
 total_chunks = ingest_folder(sample_folder, embedding_model)
 print(f"\n  Chunks ingested  : {total_chunks}")
 
