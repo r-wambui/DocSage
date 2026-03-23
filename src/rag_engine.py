@@ -17,6 +17,9 @@ from sentence_transformers import SentenceTransformer
 from src.config import  MODEL_PATH, N_CTX, TOP_K, TEMPERATURE
 from src.retriever import retrieve, format_context, get_sources
 
+import os
+os.environ["GGML_METAL_NDEBUG"] = "1"
+
 def load_llm() -> Llama:
     """
     Loads the GGUF model via llama-cpp-python.
